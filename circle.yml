@@ -1,0 +1,39 @@
+---
+
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker version
+
+    - docker build  -f test/Dockerfile-ubuntu16.04      -t mysqld_exporter_xenial       .
+    - docker build  -f test/Dockerfile-ubuntu14.04      -t mysqld_exporter_trusty       .
+    - docker build  -f test/Dockerfile-ubuntu12.04      -t mysqld_exporter_precise      .
+    - docker build  -f test/Dockerfile-debian8          -t mysqld_exporter_jessie       .
+    - docker build  -f test/Dockerfile-debian7          -t mysqld_exporter_wheezy       .
+    - docker build  -f test/Dockerfile-centos7          -t mysqld_exporter_centos7      .
+    - docker build  -f test/Dockerfile-centos6          -t mysqld_exporter_centos6      .
+
+
+test:
+  override:
+    - docker run  -v $(pwd):/data  mysqld_exporter_xenial
+    - docker run  -v $(pwd):/data  mysqld_exporter_trusty
+    - docker run  -v $(pwd):/data  mysqld_exporter_precise
+    - docker run  -v $(pwd):/data  mysqld_exporter_jessie
+    - docker run  -v $(pwd):/data  mysqld_exporter_wheezy
+    - docker run  -v $(pwd):/data  mysqld_exporter_centos7
+    - docker run  -v $(pwd):/data  mysqld_exporter_centos6
+
+
+    - echo "==> Validating the test results..."
+    - grep '^mysqld_exporter' result-ubuntu16.04
+    - grep '^mysqld_exporter' result-ubuntu14.04
+    - grep '^mysqld_exporter' result-ubuntu12.04
+    - grep '^mysqld_exporter' result-debian8
+    - grep '^mysqld_exporter' result-debian7
+    - grep '^mysqld_exporter' result-centos7
+    - grep '^mysqld_exporter' result-centos6

@@ -1,0 +1,12 @@
+
+- hosts: all
+  become: True
+  tasks:
+    - include: 'tasks/main.yml'
+  handlers:
+    - include: 'handlers/main.yml'
+  vars_files:
+    - 'defaults/main.yml'
+
+  vars:
+    prometheus_mysqld_exporter_env: "foo:bar@(localhost:3306)/"

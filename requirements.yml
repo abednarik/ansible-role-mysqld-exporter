@@ -1,0 +1,5 @@
+---
+
+# mysql role
+- src: geerlingguy.mysql
+  version: 2.3.2

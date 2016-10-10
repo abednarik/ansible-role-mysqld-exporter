@@ -1,0 +1,18 @@
+---
+#
+# user-configurable defaults
+#
+
+prometheus_user:   prometheus
+prometheus_group:  prometheus
+
+prometheus_mysqld_exporter_version: 0.9.0
+
+gosu_version: '1.10'
+
+prometheus_install_path:  /opt/prometheus
+prometheus_log_path:      /var/log/prometheus
+prometheus_pid_path:      /var/run/prometheus
+
+# Mandatory variable, e.g: prometheus_mysqld_exporter_env: 'user:password@(hostname:port)/'
+# prometheus_mysqld_exporter_env:

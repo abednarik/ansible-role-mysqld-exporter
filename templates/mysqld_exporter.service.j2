@@ -1,0 +1,16 @@
+[Unit]
+Description=mysqld_exporter - Prometheus exporter for MySQL metrics.
+Documentation=https://github.com/abednarik/ansible-role-mysqld-exporter
+After=network.target
+
+[Service]
+{% if prometheus_mysqld_exporter_env is defined %}
+Environment=DATA_SOURCE_NAME='{{ prometheus_mysqld_exporter_env }}'
+{% endif %}
+
+Type=simple
+
+User={{ prometheus_user }}
+Group={{ prometheus_group }}
+
+ExecStart={{ prometheus_mysqldd_exporter_daemon_dir: }}/mysqld_exporter

@@ -1,0 +1,47 @@
+---
+# file: tasks/main.yml
+# Top-level installer for MySQL Exporter.
+# @see https://github.com/prometheus/mysqld_exporter
+
+# Set role variables
+- name: Set role variables, if necessary
+  include: set-role-variables.yml
+
+# Dependency for Ansible to work properly
+- name: Install libselinux-python binary for Ansible to work
+  yum: name=libselinux-python state=present
+  when: ansible_pkg_mgr == "yum"
+
+# prometheus user setup
+- name: Create Prometheus group
+  group: name={{ prometheus_group }}  state=present
+
+- name: Create Prometheus user
+  user:
+    name: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    createhome: no
+    shell: /sbin/nologin
+    comment: "Prometheus User"
+    state: present
+
+- name: Create directoy for general cases
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ prometheus_user }}"
+    group: "{{ prometheus_group }}"
+    mode: "u=rwx,g=rx,o="
+  with_items:
+    - "{{ prometheus_install_path }}"
+    - "{{ prometheus_log_path }}"
+    - "{{ prometheus_pid_path }}"
+
+# Install gosu helper
+- name: Install helper utility "gosu"
+  include: install-gosu.yml
+  when: not prometheus_mysqld_exporter_use_systemd|bool
+
+# Install mysqld-exporter
+- name: Install mysqld-exporter
+  include: install-mysqld-exporter.yml

@@ -1,0 +1,11 @@
+---
+# file: handlers/main.yml
+
+- name: restart mysqld_exporter
+  service: name=mysqld_exporter state=restarted
+
+- name: reload mysqld_exporter
+  service: name=mysql_exporter state=reloaded
+
+- name: stop mysqld_exporter
+  service: name=mysqld_exporter state=stopped

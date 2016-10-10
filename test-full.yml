@@ -1,0 +1,17 @@
+---
+
+- hosts: all
+  become: True
+  tasks:
+    - include: 'tasks/main.yml'
+  handlers:
+    - include: 'handlers/main.yml'
+  vars_files:
+    - 'defaults/main.yml'
+
+  vars:
+    mysql_root_password: root
+    prometheus_mysqld_exporter_opts: "root:root@(localhost:3306)/"
+
+  roles:
+    - geerlingguy.mysql

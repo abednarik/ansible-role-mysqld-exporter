@@ -1,0 +1,12 @@
+# Vagrant generated files #
+###########################
+.vagrant
+
+# Ansible files #
+#################
+roles
+*.retry
+
+# Tests files #
+################
+result-*

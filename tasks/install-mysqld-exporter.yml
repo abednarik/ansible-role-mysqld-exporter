@@ -1,0 +1,41 @@
+---
+# file: tasks/install-mysqld-exporter.yml
+# Install Prometheus MySQL Exporter.
+#
+# @see http://prometheus.io/docs/introduction/getting_started/
+#
+
+# Set download url
+- name: Set internal variables for convenience
+  set_fact:
+    prometheus_mysqld_exporter_exe_url: "https://github.com/prometheus/mysqld_exporter/releases/download/v{{ prometheus_mysqld_exporter_version }}/mysqld_exporter-{{ prometheus_mysqld_exporter_version }}.linux-amd64.tar.gz"
+    prometheus_mysqldd_exporter_daemon_dir: "{{ prometheus_install_path }}/mysqld_exporter-{{ prometheus_mysqld_exporter_version }}.linux-amd64"
+  when: ansible_userspace_bits == "64"
+
+- name: Set internal variables for convenience
+  set_fact:
+    prometheus_mysqld_exporter_exe_url: "https://github.com/prometheus/mysqld_exporter/releases/download/v{{ prometheus_mysqld_exporter_version }}/mysqld_exporter-{{ prometheus_mysqld_exporter_version }}.linux-386.tar.gz"
+    prometheus_mysqldd_exporter_daemon_dir: "{{ prometheus_install_path }}/mysqld_exporter-{{ prometheus_mysqld_exporter_version }}.linux-386"
+  when: ansible_userspace_bits == "32"
+
+# Download binary
+- name: Download mysqld_exporter executable
+  unarchive:
+    src: "{{ prometheus_mysqld_exporter_exe_url }}"
+    dest: "{{ prometheus_install_path }}"
+    copy: no
+
+# Set init scripts
+- name: Set mysqld_exporter variables
+  template: src="../templates/etc-default-mysqld_exporter.j2"  dest=/etc/default/mysqld_exporter
+
+- name: Copy INIT script to server
+  template: src="../templates/mysqld_exporter.sysvinit.{{ ansible_os_family|lower }}.sh.j2"  dest="/etc/init.d/mysqld_exporter"  mode="a+x"
+  when: not prometheus_mysqld_exporter_use_systemd|bool
+
+- name: Copy systemd config to server
+  template: src="../templates/mysqld_exporter.service.j2"  dest="/lib/systemd/system/es_cluster_exporter.service"
+  when: prometheus_mysqld_exporter_use_systemd
+
+- name: Set INIT status
+  service: name=mysqld_exporter enabled=yes state=restarted
