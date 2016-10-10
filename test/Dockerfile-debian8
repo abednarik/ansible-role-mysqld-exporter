@@ -35,5 +35,5 @@ VOLUME ["/data"]
 ENV    RESULT     /data/result-debian8
 
 CMD  \
-     service mysql_exporter start &&  sleep 10  &&  \
+     service mysqld_exporter start &&  sleep 10  &&  \
      curl --retry 5 --retry-max-time 120  http://localhost:9104/metrics  > $RESULT

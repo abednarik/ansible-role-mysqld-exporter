@@ -54,7 +54,7 @@ None.
 - hosts: all
   become: True
   roles:
-    - abednarik.prometheus
+    - abednarik.mysqld-exporter
 
   vars:
     prometheus_mysqld_exporter_env: 'exporter:password@(localhost:3306)/'
