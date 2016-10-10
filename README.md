@@ -1,6 +1,7 @@
 # Ansible Role: MySQL Exporter
 
-[![Build Status](https://travis-ci.org/abednarik/ansible-role-mysqld-exporter.svg?branch=master)](https://travis-ci.org/abednarik/ansible-role-mysqld-exporter) [![CircleCI](https://circleci.com/gh/abednarik/ansible-role-mysqld-exporter/tree/master.svg?style=svg)](https://circleci.com/gh/abednarik/ansible-role-mysqld-exporter/tree/master)
+[![Build Status](https://travis-ci.org/abednarik/ansible-role-mysqld-exporter.svg?branch=master)](https://travis-ci.org/abednarik/ansible-role-mysqld-exporter) 
+[![CircleCI](https://circleci.com/gh/abednarik/ansible-role-mysqld-exporter.svg?style=shield)](https://circleci.com/gh/abednarik/ansible-role-mysqld-exporter)
 
 An Ansible Role that installs [MySQL Exporter](https://github.com/prometheus/mysqld_exporter) on RedHat/CentOS or Debian/Ubuntu.
 
