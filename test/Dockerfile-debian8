@@ -15,7 +15,7 @@ MAINTAINER William Yeh <william.pjyeh@gmail.com>
 #
 
 ENV PLAYBOOK test.yml
-RUN ansible-playbook-wrapper -vvv --extra-vars "prometheus_es_cluster_exporter_use_systemd=false"
+RUN ansible-playbook-wrapper -vvv --extra-vars "prometheus_mysqld_exporter_use_systemd=false"
 
 
 
