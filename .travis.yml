@@ -23,12 +23,12 @@ script:
     - docker run  -v $(pwd):/data  mysqld_exporter_centos6
 
     - echo "==> Validating the test results..."
-    - grep '^mysqld_up' result-ubuntu14.04
-    - grep '^mysqld_up' result-ubuntu12.04
-    - grep '^mysqld_up' result-centos7
-    - grep '^mysqld_up' result-centos6
-    - grep '^mysqld_up' result-debian8
-    - grep '^mysqld_up' result-debian7
+    - grep '^mysqld_exporter' result-ubuntu14.04
+    - grep '^mysqld_exporter' result-ubuntu12.04
+    - grep '^mysqld_exporter' result-centos7
+    - grep '^mysqld_exporter' result-centos6
+    - grep '^mysqld_exporter' result-debian8
+    - grep '^mysqld_exporter' result-debian7
 
 notifications:
     webhooks: https://galaxy.ansible.com/api/v1/notifications/

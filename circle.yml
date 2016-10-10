@@ -9,7 +9,6 @@ dependencies:
     - docker info
     - docker version
 
-    - docker build  -f test/Dockerfile-ubuntu16.04      -t mysqld_exporter_xenial       .
     - docker build  -f test/Dockerfile-ubuntu14.04      -t mysqld_exporter_trusty       .
     - docker build  -f test/Dockerfile-ubuntu12.04      -t mysqld_exporter_precise      .
     - docker build  -f test/Dockerfile-debian8          -t mysqld_exporter_jessie       .
@@ -20,7 +19,6 @@ dependencies:
 
 test:
   override:
-    - docker run  -v $(pwd):/data  mysqld_exporter_xenial
     - docker run  -v $(pwd):/data  mysqld_exporter_trusty
     - docker run  -v $(pwd):/data  mysqld_exporter_precise
     - docker run  -v $(pwd):/data  mysqld_exporter_jessie
@@ -30,7 +28,6 @@ test:
 
 
     - echo "==> Validating the test results..."
-    - grep '^mysqld_exporter' result-ubuntu16.04
     - grep '^mysqld_exporter' result-ubuntu14.04
     - grep '^mysqld_exporter' result-ubuntu12.04
     - grep '^mysqld_exporter' result-debian8
