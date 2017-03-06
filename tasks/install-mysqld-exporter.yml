@@ -34,7 +34,7 @@
   when: not prometheus_mysqld_exporter_use_systemd|bool
 
 - name: Copy systemd config to server
-  template: src="../templates/mysqld_exporter.service.j2"  dest="/lib/systemd/system/es_cluster_exporter.service"
+  template: src="../templates/mysqld_exporter.service.j2"  dest="/lib/systemd/system/mysqld_exporter.service"
   when: prometheus_mysqld_exporter_use_systemd
 
 - name: Set INIT status
