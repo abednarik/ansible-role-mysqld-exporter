@@ -5,7 +5,7 @@ After=network.target
 
 [Service]
 {% if prometheus_mysqld_exporter_env is defined %}
-Environment=DATA_SOURCE_NAME='{{ prometheus_mysqld_exporter_env }}'
+Environment=DATA_SOURCE_NAME={{ prometheus_mysqld_exporter_env }}
 {% endif %}
 
 Type=simple
