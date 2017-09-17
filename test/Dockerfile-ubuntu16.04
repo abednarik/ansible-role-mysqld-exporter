@@ -18,7 +18,7 @@ ENV PLAYBOOK test.yml
 RUN echo "===> Installing git for ansible galaxy..."  && \
     DEBIAN_FRONTEND=noninteractive  \
     apt-get install -y -f git
-RUN ansible-playbook-wrapper
+RUN ansible-playbook-wrapper -e 'prometheus_mysqld_exporter_use_systemd=false'
 
 
 
@@ -35,7 +35,7 @@ RUN echo "===> Installing curl for testing purpose..."  && \
 
 
 VOLUME ["/data"]
-ENV    RESULT     /data/result-ubuntu14.04
+ENV    RESULT     /data/result-ubuntu16.04
 
 CMD  \
      service mysqld_exporter start &&  sleep 10  &&  \
