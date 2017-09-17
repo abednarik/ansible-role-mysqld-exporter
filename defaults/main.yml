@@ -6,7 +6,7 @@
 prometheus_user:   prometheus
 prometheus_group:  prometheus
 
-prometheus_mysqld_exporter_version: 0.9.0
+prometheus_mysqld_exporter_version: 0.10.0
 
 gosu_version: '1.10'
 

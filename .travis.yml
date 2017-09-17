@@ -1,4 +1,5 @@
 ---
+
 sudo: true
 services:
     - docker
@@ -7,6 +8,7 @@ before_install:
     - docker info
     - docker version
 
+    - docker build  -f test/Dockerfile-ubuntu16.04      -t mysqld_exporter_xenial       .
     - docker build  -f test/Dockerfile-ubuntu14.04      -t mysqld_exporter_trusty       .
     - docker build  -f test/Dockerfile-ubuntu12.04      -t mysqld_exporter_precise      .
     - docker build  -f test/Dockerfile-debian8          -t mysqld_exporter_jessie       .
@@ -15,6 +17,7 @@ before_install:
     - docker build  -f test/Dockerfile-centos6          -t mysqld_exporter_centos6      .
 
 script:
+    - docker run  -v $(pwd):/data  mysqld_exporter_xenial
     - docker run  -v $(pwd):/data  mysqld_exporter_trusty
     - docker run  -v $(pwd):/data  mysqld_exporter_precise
     - docker run  -v $(pwd):/data  mysqld_exporter_jessie
@@ -23,6 +26,7 @@ script:
     - docker run  -v $(pwd):/data  mysqld_exporter_centos6
 
     - echo "==> Validating the test results..."
+    - grep '^mysqld_exporter' result-ubuntu16.04
     - grep '^mysqld_exporter' result-ubuntu14.04
     - grep '^mysqld_exporter' result-ubuntu12.04
     - grep '^mysqld_exporter' result-centos7

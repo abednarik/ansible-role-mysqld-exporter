@@ -7,11 +7,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.define "main", primary: true do |node|
         node.vm.box = "ubuntu/trusty64"
-        #node.vm.box = "ubuntu/precise64"
-        #node.vm.box = "debian/jessie64"
-        #node.vm.box = "debian/wheezy64"
-        #node.vm.box = "centos/7"
-        #node.vm.box = "centos/6"
 
         node.vm.provision "ansible" do |ansible|
             ansible.playbook = "test.yml"
