@@ -8,22 +8,22 @@
   - name: Use systemd for CentOS >= 7
     set_fact:
       prometheus_mysqld_exporter_use_systemd: true
-    when: ansible_distribution == "CentOS" and ansible_distribution_version|int >= 7
+    when: ansible_distribution == "CentOS" and ansible_distribution_major_version|int >= 7
 
   - name: Use systemd for RHEL >= 7
     set_fact:
       prometheus_mysqld_exporter_use_systemd: true
-    when: ansible_distribution == "Red Hat Enterprise Linux" and ansible_distribution_version|int >= 7
+    when: ansible_distribution == "Red Hat Enterprise Linux" and ansible_distribution_major_version|int >= 7
 
   - name: Use systemd for Debian >= 8
     set_fact:
       prometheus_mysqld_exporter_use_systemd: true
-    when: ansible_distribution == "Debian" and ansible_distribution_version|int >= 8
+    when: ansible_distribution == "Debian" and ansible_distribution_major_version|int >= 8
 
   - name: Use systemd for Ubuntu >= 16.04
     set_fact:
       prometheus_mysqld_exporter_use_systemd: true
-    when: ansible_distribution == "Ubuntu" and ansible_distribution_version|int >= 16
+    when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version|int >= 16
 
   when: prometheus_mysqld_exporter_use_systemd is not defined
 
